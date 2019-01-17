@@ -103,6 +103,7 @@ AC_SUBST(PLATFORMCPPFLAGS)
 
 # Checks for programs.
 AC_PROG_CC
+AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_USE_SYSTEM_EXTENSIONS
 AC_LIBTOOL_WIN32_DLL
@@ -439,7 +440,9 @@ if test "x$with_xml2" != "xno"; then
   PKG_CHECK_MODULES(LIBXML2_PC, [libxml-2.0], [
     CPPFLAGS="${CPPFLAGS} ${LIBXML2_PC_CFLAGS}"
     LIBS="${LIBS} ${LIBXML2_PC_LIBS}"
+    AC_LANG_PUSH([C++])
     AC_CHECK_LIB(xml2,xmlInitParser,[true],AC_MSG_FAILURE(Missing xml2 library))
+    AC_LANG_POP([C++])
   ], [
     AC_CHECK_LIB(xml2,xmlInitParser)
   ])
